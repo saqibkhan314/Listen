@@ -730,17 +730,10 @@ const PlayerScreen = () => {
 
   return (
     <View style={[styles.container, isCollapsed && styles.collapsedContainer]}>
-      {/* Collapsed View */}
-      {/* {isCollapsed ? (
-        <TouchableOpacity style={styles.collapsedBar} onPress={toggleCollapse}>
-          <Text style={styles.collapsedText}>{currentTrack?.title || 'No Track Playing'}</Text>
-        </TouchableOpacity>
-      ) : ( */}
+      
+     
         <>
-          {/* Expanded View */}
-          {/* <Pressable style={styles.closeButton} onPress={toggleCollapse}>
-            <Icon name="close" size={24} color="#FFFFFF" />
-          </Pressable> */}
+         
 
           {/* Track Information */}
           {currentTrack ? (
