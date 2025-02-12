@@ -734,9 +734,7 @@ import TrackPlayer, { Event, State, useTrackPlayerEvents, usePlaybackState } fro
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from './App';
 import { StackNavigationProp } from '@react-navigation/stack';
-import ControlCenter from './components/ControlCenter';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Pressable } from 'react-native';
+
 
 import MusicContext from './context/MusicContext';
 

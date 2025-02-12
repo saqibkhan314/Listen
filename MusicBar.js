@@ -338,140 +338,15 @@
 
 
 
-import React, { useContext, useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Image,
-  PanResponder,
-} from 'react-native';
-import MusicContext from './src/context/MusicContext';
-import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Modal from 'react-native-modal';
-import PlayerScreen from './src/components/PlayerScreen';
-
-const MusicBar = () => {
-  const { currentTrack } = useContext(MusicContext);
-  const navigation = useNavigation();
-  const playBackState = usePlaybackState();
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // Toggle play/pause functionality remains the same.
-  const togglePlayback = async (playback) => {
-    const current = await TrackPlayer.getCurrentTrack();
-    if (current !== null) {
-      if (playback === State.Paused || playback === State.Ready) {
-        await TrackPlayer.play();
-      } else {
-        await TrackPlayer.pause();
-      }
-    }
-  };
-
-  // If no track is playing, do not render the MusicBar.
-  if (!currentTrack) {
-    return null;
-  }
-
-  // Create a PanResponder to detect upward swipe gestures.
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderRelease: (evt, gestureState) => {
-        // Check if the vertical swipe (dy) is significant and upward.
-        if (gestureState.dy < -30) {
-          setIsModalVisible(true);
-        }
-      },
-    })
-  ).current;
-
-  return (
-    <>
-      {/* Persistent Music Bar with PanResponder for swipe-up gesture */}
-      <View style={styles.songBar} {...panResponder.panHandlers}>
-        <Image
-          source={{ uri: currentTrack.artwork }}
-          style={styles.songBarImage}
-        />
-        <Text style={styles.songBarText}>{currentTrack.title}</Text>
-        <Pressable
-          onPress={() => togglePlayback(playBackState.state || State.None)}
-        >
-          <Icon
-            style={styles.icon}
-            name={
-              playBackState.state === State.Playing ? 'pause' : 'play-arrow'
-            }
-            size={40}
-          />
-        </Pressable>
-      </View>
-
-      {/* Full Screen Modal for PlayerScreen */}
-      <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={() => setIsModalVisible(false)}
-        swipeDirection="down"
-        onSwipeComplete={() => setIsModalVisible(false)}
-        style={styles.modalStyle}
-      >
-        <PlayerScreen />
-      </Modal>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  songBar: {
-    width: '100%',
-    height: 70,
-    backgroundColor: '#002E2E',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  songBarImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-  },
-  songBarText: {
-    color: 'white',
-    fontSize: 16,
-    marginLeft: 10,
-  },
-  icon: {
-    color: 'white',
-    marginLeft: 'auto'
-  },
-  modalStyle: {
-    margin: 0, // Full screen modal
-  },
-});
-
-export default MusicBar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useContext, useState, useRef, useEffect } from 'react';
-// import { View, Text, StyleSheet, TouchableOpacity, Pressable, Image, PanResponder } from 'react-native';
+// import React, { useContext, useState, useRef } from 'react';
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   Pressable,
+//   Image,
+//   PanResponder,
+// } from 'react-native';
 // import MusicContext from './src/context/MusicContext';
 // import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 // import { useNavigation } from '@react-navigation/native';
@@ -484,20 +359,8 @@ export default MusicBar;
 //   const navigation = useNavigation();
 //   const playBackState = usePlaybackState();
 //   const [isModalVisible, setIsModalVisible] = useState(false);
-//   const panResponder = useRef();
 
-//   useEffect(() => {
-//     panResponder.current = PanResponder.create({
-//       onStartShouldSetPanResponder: () => true,
-//       onPanResponderRelease: (evt, gestureState) => {
-//         // Detect upward swipe to open the PlayerScreen modal.
-//         if (gestureState.dy < -30) {
-//           setIsModalVisible(true);
-//         }
-//       },
-//     });
-//   }, []);
-
+//   // Toggle play/pause functionality remains the same.
 //   const togglePlayback = async (playback) => {
 //     const current = await TrackPlayer.getCurrentTrack();
 //     if (current !== null) {
@@ -509,33 +372,51 @@ export default MusicBar;
 //     }
 //   };
 
-//   // If no track is playing, don't render the bar
+//   // If no track is playing, do not render the MusicBar.
 //   if (!currentTrack) {
 //     return null;
 //   }
 
+//   // Create a PanResponder to detect upward swipe gestures.
+//   const panResponder = useRef(
+//     PanResponder.create({
+//       onStartShouldSetPanResponder: () => true,
+//       onPanResponderRelease: (evt, gestureState) => {
+//         // Check if the vertical swipe (dy) is significant and upward.
+//         if (gestureState.dy < -30) {
+//           setIsModalVisible(true);
+//         }
+//       },
+//     })
+//   ).current;
+
 //   return (
 //     <>
-//       {/* Persistent Music Bar */}
-//       <View {...panResponder.current?.panHandlers} style={styles.songBar}>
-//         <TouchableOpacity onPress={() => setIsModalVisible(true)}>
-//           <Image source={{ uri: currentTrack.artwork }} style={styles.songBarImage} />
-//           <Text style={styles.songBarText}>{currentTrack.title}</Text>
-//         </TouchableOpacity>
-//         <Pressable onPress={() => togglePlayback(playBackState.state || State.None)}>
+//       {/* Persistent Music Bar with PanResponder for swipe-up gesture */}
+//       <View style={styles.songBar} {...panResponder.panHandlers}>
+//         <Image
+//           source={{ uri: currentTrack.artwork }}
+//           style={styles.songBarImage}
+//         />
+//         <Text style={styles.songBarText}>{currentTrack.title}</Text>
+//         <Pressable
+//           onPress={() => togglePlayback(playBackState.state || State.None)}
+//         >
 //           <Icon
 //             style={styles.icon}
-//             name={playBackState.state === State.Playing ? 'pause' : 'play-arrow'}
+//             name={
+//               playBackState.state === State.Playing ? 'pause' : 'play-arrow'
+//             }
 //             size={40}
 //           />
 //         </Pressable>
 //       </View>
 
-//       {/* Full Screen Modal */}
+//       {/* Full Screen Modal for PlayerScreen */}
 //       <Modal
 //         isVisible={isModalVisible}
 //         onBackdropPress={() => setIsModalVisible(false)}
-//         swipeDirection={["down", "up", "right"]}
+//         swipeDirection="down"
 //         onSwipeComplete={() => setIsModalVisible(false)}
 //         style={styles.modalStyle}
 //       >
@@ -566,18 +447,135 @@ export default MusicBar;
 //   },
 //   icon: {
 //     color: 'white',
-//     marginLeft: 'auto',
+//     marginLeft: 'auto'
 //   },
 //   modalStyle: {
 //     margin: 0, // Full screen modal
-//   },
-//   modalContentFull: {
-//     flex: 1,
-//     backgroundColor: '#002E2E',
-//     padding: 20,
-//     borderTopLeftRadius: 12,
-//     borderTopRightRadius: 12,
+//     // // borderBottomLeftRadius:100,
+//     // borderBottomStartRadius:50
 //   },
 // });
 
 // export default MusicBar;
+
+
+
+
+
+
+
+
+
+
+
+import React, { useContext, useState, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, Image, PanResponder } from 'react-native';
+import MusicContext from './src/context/MusicContext';
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Modal from 'react-native-modal';
+import PlayerScreen from './src/components/PlayerScreen';
+
+const MusicBar = () => {
+  const { currentTrack } = useContext(MusicContext);
+  const navigation = useNavigation();
+  const playBackState = usePlaybackState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const panResponder = useRef();
+
+  useEffect(() => {
+    panResponder.current = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        // Detect upward swipe to open the PlayerScreen modal.
+        if (gestureState.dy < -30) {
+          setIsModalVisible(true);
+        }
+      },
+    });
+  }, []);
+
+  const togglePlayback = async (playback) => {
+    const current = await TrackPlayer.getCurrentTrack();
+    if (current !== null) {
+      if (playback === State.Paused || playback === State.Ready) {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
+  };
+
+  // If no track is playing, don't render the bar
+  if (!currentTrack) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Persistent Music Bar */}
+      <View {...panResponder.current?.panHandlers} style={styles.songBar}>
+        <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+          <Image source={{ uri: currentTrack.artwork }} style={styles.songBarImage} />
+          <Text style={styles.songBarText}>{currentTrack.title}</Text>
+        </TouchableOpacity>
+        <Pressable onPress={() => togglePlayback(playBackState.state || State.None)}>
+          <Icon
+            style={styles.icon}
+            name={playBackState.state === State.Playing ? 'pause' : 'play-arrow'}
+            size={40}
+          />
+        </Pressable>
+      </View>
+
+      {/* Full Screen Modal */}
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setIsModalVisible(false)}
+        swipeDirection={["down", "up", "right"]}
+        onSwipeComplete={() => setIsModalVisible(false)}
+        style={styles.modalStyle}
+      >
+        <PlayerScreen />
+      </Modal>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  songBar: {
+    width: '100%',
+    height: 70,
+    backgroundColor: '#002E2E',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  songBarImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+  },
+  songBarText: {
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  icon: {
+    color: 'white',
+    marginLeft: 'auto',
+  },
+  modalStyle: {
+    margin: 0, // Full screen modal
+  },
+  modalContentFull: {
+    flex: 1,
+    backgroundColor: '#002E2E',
+    padding: 20,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+});
+
+export default MusicBar;
