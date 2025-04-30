@@ -729,14 +729,14 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, FlatList, TouchableOpacity } from 'react-native';
-import { arijitList } from './assets/songs/ArijitSongs';
+import { arijitList } from '../assets/songs/ArijitSongs';
 import TrackPlayer, { Event, State, useTrackPlayerEvents, usePlaybackState } from 'react-native-track-player';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from './App';
+import { RootStackParamList } from '../../App';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
-import MusicContext from './context/MusicContext';
+import MusicContext from '../context/MusicContext';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -806,7 +806,7 @@ export default function ArijitSingh() {
                 </View>
                 {(item.id === initialTrackPlayingId && playBackState.state === State.Playing) && (
                   <Image
-                    source={require('./images/flash.png')}
+                    source={require('../assets/images/flash.png')}
                     style={styles.playingDesign}
                   />
                 )}

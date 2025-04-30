@@ -470,12 +470,12 @@
 
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, Image, PanResponder } from 'react-native';
-import MusicContext from './src/context/MusicContext';
+import MusicContext from '../context/MusicContext';
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
-import PlayerScreen from './src/components/PlayerScreen';
+import PlayerScreen from '../screens/PlayerScreen';
 
 const MusicBar = () => {
   const { currentTrack } = useContext(MusicContext);
@@ -533,7 +533,7 @@ const MusicBar = () => {
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setIsModalVisible(false)}
-        swipeDirection={["down", "up", "right"]}
+        swipeDirection={["down"]}
         onSwipeComplete={() => setIsModalVisible(false)}
         style={styles.modalStyle}
       >

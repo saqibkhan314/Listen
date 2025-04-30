@@ -246,23 +246,24 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { ActivityIndicator, SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
-import { setupPlayer } from '../musicPlayerService';
+import { setupPlayer } from './src/utils/musicPlayerService';
 // import MusicPlayer from './screens/MusicPlayer';
-import AllSongs from './components/AllSongs';
-import hello from './ArijitSingh';
+import AllSongs from './src/screens/AllSongs';
+import hello from './src/screens/ArijitSingh';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import SongInfo from './components/SongInfo';
-import SongSlider from './components/PlayerScreen';
-import ControlCenter from './components/ControlCenter';
+import SongInfo from './src/components/SongInfo';
+import SongSlider from './src/screens/PlayerScreen';
+import ControlCenter from './src/components/ControlCenter';
 // import { currentState } from './screens/ArijitSingh';
-import { arijitList } from './assets/songs/ArijitSongs';
-import ArijitSingh from './ArijitSingh';
-import PlayerScreen from './components/PlayerScreen';
-import MusicContextProvider from './context/MusicContextProvider';
-import MusicBar from '../MusicBar';
-import MusicContext from './context/MusicContext';
+import { arijitList } from './src/assets/songs/ArijitSongs';
+import ArijitSingh from './src/screens/ArijitSingh';
+import PlayerScreen from './src/screens/PlayerScreen';
+import MusicContextProvider from './src/context/MusicContextProvider';
+import MusicBar from './src/utils/MusicBar';
+// import MusicContext from './src/context/MusicContextProvider';
+// import SplashScreen from 'react-native-splash-screen';
 
 
 export type RootStackParamList = {
@@ -275,6 +276,9 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
+  // useEffect(() => {
+  //   SplashScreen.hide();
+  // }, []);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
   async function setup() {
@@ -282,7 +286,7 @@ function App(): React.JSX.Element {
       let isSetup = await setupPlayer();
       if (isSetup) {
         // await currentState(arijitList);
-        console.log("player setup is ready");
+        console.log("player setup is readybuihguihgui");
         
       }
       setIsPlayerReady(isSetup);
@@ -350,3 +354,52 @@ export default App;
 
 
 
+
+// import React, { useState, useEffect } from 'react';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { NavigationContainer } from '@react-navigation/native';
+// import AllSongs from './components/AllSongs';
+// import ArijitSingh from './ArijitSingh';
+// import PlayerScreen from './components/PlayerScreen';
+// import MusicContextProvider from './context/MusicContextProvider';
+// import MusicBar from '../MusicBar';
+// // import SplashScreenAnimation from './SplashScreenAnimation'; // Import animated splash
+
+// const Stack = createNativeStackNavigator();
+
+// function App() {
+//   // const [showSplash, setShowSplash] = useState(true);
+
+//   // useEffect(() => {
+//   //   setTimeout(() => {
+//   //     setShowSplash(false); // Hide splash after animation
+//   //   }, 2500); // Matches animation duration
+//   // }, []);
+
+//   // if (showSplash) {
+//   //   return <SplashScreenAnimation onFinish={() => setShowSplash(false)} />;
+//   // }
+
+//   return (
+//     <MusicContextProvider>
+//       <NavigationContainer>
+//         <Stack.Navigator initialRouteName="AllSongs">
+//           <Stack.Screen
+//             name="AllSongs"
+//             component={AllSongs}
+//             options={{ headerShown: false }}
+//           />
+//           <Stack.Screen name="ArijitSingh" component={ArijitSingh} />
+//           <Stack.Screen
+//             name="PlayerScreen"
+//             component={PlayerScreen}
+//             options={{ headerShown: false }}
+//           />
+//         </Stack.Navigator>
+//         <MusicBar />
+//       </NavigationContainer>
+//     </MusicContextProvider>
+//   );
+// }
+
+// export default App;

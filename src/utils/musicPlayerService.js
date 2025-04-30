@@ -48,7 +48,7 @@
 
 
 import TrackPlayer, { RepeatMode, Event } from "react-native-track-player";
-import { arijitList } from "./src/assets/songs/ArijitSongs";
+import { arijitList } from "../assets/songs/ArijitSongs";
 
 export async function setupPlayer() {
   let isSetUp = false;
